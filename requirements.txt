@@ -1,0 +1,5 @@
+emoji==1.7.0
+pyTelegramBotAPI==4.5.1
+SQLAlchemy==1.4.36
+python-dotenv==0.20.0
+
