@@ -13,10 +13,30 @@ class HandlerAllText(Handler):
         # шаг в заказе
         self.step = 0
 
+    def pressed_button_category(self, message):
+        """
+        Обработка нажатия на кнопку 'Выбрать товар'
+        """
+        self.bot.send_message(message.chat.id, "Каталог категорий товара",
+                              reply_markup=self.keyboard.remove_menu())
+        self.bot.send_message(message.chat.id, "Сделайте свой выбор",
+                              reply_markup=self.keyboard.category_menu())
+
+    def pressed_button_product(self, message, product):
+        """
+        Обработка нажатия на кнопку 'Выбрать товар'
+        """
+        self.bot.send_message(message.chat.id, 'Категория ' +
+                              config.KEYBOARD[product],
+                              reply_markup=
+                              self.keyboard.set_select_category(
+                                  config.CATEGORY[product]))
+        self.bot.send_message(message.chat.id, "Ок",
+                              reply_markup=self.keyboard.category_menu())
+
     def pressed_button_info(self, message):
         """
-        Обрабатывает входящие текстовые сообщения
-        от нажатия на кнопку 'О магазине'.
+        Обрабатывает нажатия на кнопку 'О магазине'.
         """
         self.bot.send_message(message.chat.id, MESSAGES['trading_store'],
                               parse_mode="HTML",
@@ -24,8 +44,7 @@ class HandlerAllText(Handler):
 
     def pressed_button_settings(self, message):
         """
-        Обрабатывает входящие текстовые сообщения
-        от нажатия на кнопку 'Настройки'.
+        Обрабатывает нажатия на кнопку 'Настройки'.
         """
         self.bot.send_message(message.chat.id, MESSAGES['settings'],
                               parse_mode="HTML",
@@ -33,7 +52,7 @@ class HandlerAllText(Handler):
 
     def pressed_button_back(self, message):
         """
-        Обрабатывает входящие текстовые сообщения от нажатия на кнопку 'Назад'.
+        Обрабатывает нажатия на кнопку 'Назад'.
         """
         self.bot.send_message(message.chat.id, "Вы вернулись назад",
                               reply_markup=self.keyboard.start_menu())
@@ -51,3 +70,17 @@ class HandlerAllText(Handler):
 
             if message.text == config.KEYBOARD['<<']:
                 self.pressed_button_back(message)
+
+            if message.text == config.KEYBOARD['CHOOSE_GOODS']:
+                self.pressed_button_category(message)
+
+            # ----------------------------------------------#
+
+            if message.text == config.KEYBOARD['SEMIPRODUCT']:
+                self.pressed_button_product(message, 'SEMIPRODUCT')
+
+            if message.text == config.KEYBOARD['GROCERY']:
+                self.pressed_button_product(message, 'GROCERY')
+
+            if message.text == config.KEYBOARD['ICE_CREAM']:
+                self.pressed_button_product(message, 'ICE_CREAM')

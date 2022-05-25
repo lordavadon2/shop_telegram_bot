@@ -46,7 +46,7 @@ settings = """
 -<b>разработчик: - </b><i>({})</i>
 
 
-<b>{}@lordavadon</b>
+<b>@lordavadon</b>
 
 """.format(
     KEYBOARD['<<'],
@@ -60,7 +60,6 @@ settings = """
     KEYBOARD['APPLY'],
     VERSION,
     AUTHOR,
-    KEYBOARD['COPY'],
 )
 
 # ответ пользователю при добавлении товара в заказ
